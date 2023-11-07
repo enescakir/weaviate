@@ -79,8 +79,11 @@ jobs:
           name: coverage-report-integration
           path: coverage-integration.txt
   Modules-Acceptance-Tests:
-    name: modules-acceptance-tests  
-    runs-on: ubicloud-standard-8
+    name: modules-acceptance-tests ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [ubuntu-latest, ubicloud, ubicloud-standard-8, ubicloud-standard-16, buildjet-8vcpu-ubuntu-2204, buildjet-16vcpu-ubuntu-2204]
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Go
